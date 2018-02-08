@@ -4,11 +4,10 @@ before_install:
   - go get github.com/gogo/protobuf/types
   - go get github.com/gogo/protobuf/protoc-gen-gogotypes
   - go get github.com/gogo/protobuf/gogoreplace
+  - echo $TRAVIS_GO_VERSION
 
 script:
   - PATH=/home/travis/bin:$PATH make test
-  - echo $TRAVIS_GO_VERSION
-  - ! git status --porcelain | read || (git status; git diff; exit 1);
 
 language: go
 
