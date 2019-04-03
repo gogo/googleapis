@@ -50,7 +50,7 @@ type RetryInfo struct {
 func (m *RetryInfo) Reset()      { *m = RetryInfo{} }
 func (*RetryInfo) ProtoMessage() {}
 func (*RetryInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{0}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{0}
 }
 func (m *RetryInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -104,7 +104,7 @@ type DebugInfo struct {
 func (m *DebugInfo) Reset()      { *m = DebugInfo{} }
 func (*DebugInfo) ProtoMessage() {}
 func (*DebugInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{1}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{1}
 }
 func (m *DebugInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -173,7 +173,7 @@ type QuotaFailure struct {
 func (m *QuotaFailure) Reset()      { *m = QuotaFailure{} }
 func (*QuotaFailure) ProtoMessage() {}
 func (*QuotaFailure) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{2}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{2}
 }
 func (m *QuotaFailure) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -236,7 +236,7 @@ type QuotaFailure_Violation struct {
 func (m *QuotaFailure_Violation) Reset()      { *m = QuotaFailure_Violation{} }
 func (*QuotaFailure_Violation) ProtoMessage() {}
 func (*QuotaFailure_Violation) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{2, 0}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{2, 0}
 }
 func (m *QuotaFailure_Violation) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -299,7 +299,7 @@ type PreconditionFailure struct {
 func (m *PreconditionFailure) Reset()      { *m = PreconditionFailure{} }
 func (*PreconditionFailure) ProtoMessage() {}
 func (*PreconditionFailure) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{3}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{3}
 }
 func (m *PreconditionFailure) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -362,7 +362,7 @@ type PreconditionFailure_Violation struct {
 func (m *PreconditionFailure_Violation) Reset()      { *m = PreconditionFailure_Violation{} }
 func (*PreconditionFailure_Violation) ProtoMessage() {}
 func (*PreconditionFailure_Violation) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{3, 0}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{3, 0}
 }
 func (m *PreconditionFailure_Violation) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -429,7 +429,7 @@ type BadRequest struct {
 func (m *BadRequest) Reset()      { *m = BadRequest{} }
 func (*BadRequest) ProtoMessage() {}
 func (*BadRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{4}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{4}
 }
 func (m *BadRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -485,7 +485,7 @@ type BadRequest_FieldViolation struct {
 func (m *BadRequest_FieldViolation) Reset()      { *m = BadRequest_FieldViolation{} }
 func (*BadRequest_FieldViolation) ProtoMessage() {}
 func (*BadRequest_FieldViolation) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{4, 0}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{4, 0}
 }
 func (m *BadRequest_FieldViolation) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -549,7 +549,7 @@ type RequestInfo struct {
 func (m *RequestInfo) Reset()      { *m = RequestInfo{} }
 func (*RequestInfo) ProtoMessage() {}
 func (*RequestInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{5}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{5}
 }
 func (m *RequestInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -604,7 +604,8 @@ type ResourceInfo struct {
 	ResourceType string `protobuf:"bytes,1,opt,name=resource_type,json=resourceType,proto3" json:"resource_type,omitempty"`
 	// The name of the resource being accessed.  For example, a shared calendar
 	// name: "example.com_4fghdhgsrgh@group.calendar.google.com", if the current
-	// error is [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
+	// error is
+	// [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
 	ResourceName string `protobuf:"bytes,2,opt,name=resource_name,json=resourceName,proto3" json:"resource_name,omitempty"`
 	// The owner of the resource (optional).
 	// For example, "user:<owner email>" or "project:<Google developer project
@@ -622,7 +623,7 @@ type ResourceInfo struct {
 func (m *ResourceInfo) Reset()      { *m = ResourceInfo{} }
 func (*ResourceInfo) ProtoMessage() {}
 func (*ResourceInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{6}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{6}
 }
 func (m *ResourceInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -699,7 +700,7 @@ type Help struct {
 func (m *Help) Reset()      { *m = Help{} }
 func (*Help) ProtoMessage() {}
 func (*Help) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{7}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{7}
 }
 func (m *Help) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -753,7 +754,7 @@ type Help_Link struct {
 func (m *Help_Link) Reset()      { *m = Help_Link{} }
 func (*Help_Link) ProtoMessage() {}
 func (*Help_Link) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{7, 0}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{7, 0}
 }
 func (m *Help_Link) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -817,7 +818,7 @@ type LocalizedMessage struct {
 func (m *LocalizedMessage) Reset()      { *m = LocalizedMessage{} }
 func (*LocalizedMessage) ProtoMessage() {}
 func (*LocalizedMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_error_details_ff696d72eb1e7a26, []int{8}
+	return fileDescriptor_error_details_2edf7fbe5cb3f395, []int{8}
 }
 func (m *LocalizedMessage) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4612,10 +4613,10 @@ var (
 )
 
 func init() {
-	proto.RegisterFile("google/rpc/error_details.proto", fileDescriptor_error_details_ff696d72eb1e7a26)
+	proto.RegisterFile("google/rpc/error_details.proto", fileDescriptor_error_details_2edf7fbe5cb3f395)
 }
 
-var fileDescriptor_error_details_ff696d72eb1e7a26 = []byte{
+var fileDescriptor_error_details_2edf7fbe5cb3f395 = []byte{
 	// 624 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0xbf, 0x6f, 0xd3, 0x40,
 	0x18, 0xed, 0x35, 0x69, 0x91, 0xbf, 0x84, 0x52, 0xcc, 0x0f, 0x85, 0x48, 0x9c, 0x82, 0x11, 0x52,

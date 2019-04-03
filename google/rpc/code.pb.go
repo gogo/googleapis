@@ -208,7 +208,7 @@ var Code_value = map[string]int32{
 }
 
 func (Code) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_code_29c527ae4b4f0e5d, []int{0}
+	return fileDescriptor_code_869751e45f273cf2, []int{0}
 }
 
 func init() {
@@ -222,9 +222,9 @@ func (x Code) String() string {
 	return strconv.Itoa(int(x))
 }
 
-func init() { proto.RegisterFile("google/rpc/code.proto", fileDescriptor_code_29c527ae4b4f0e5d) }
+func init() { proto.RegisterFile("google/rpc/code.proto", fileDescriptor_code_869751e45f273cf2) }
 
-var fileDescriptor_code_29c527ae4b4f0e5d = []byte{
+var fileDescriptor_code_869751e45f273cf2 = []byte{
 	// 393 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x44, 0x91, 0x3d, 0x6e, 0x13, 0x41,
 	0x14, 0xc7, 0x3d, 0x76, 0x70, 0xe2, 0xf1, 0xd7, 0xcb, 0x84, 0x40, 0x37, 0x07, 0xa0, 0x70, 0x0a,
