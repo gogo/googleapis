@@ -9,6 +9,7 @@ import (
 	proto "github.com/gogo/protobuf/proto"
 	io "io"
 	math "math"
+	math_bits "math/bits"
 	reflect "reflect"
 	strings "strings"
 )
@@ -22,7 +23,7 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
+const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Defines the HTTP configuration for an API service. It contains a list of
 // [HttpRule][google.api.HttpRule], each specifying the mapping of an RPC method
@@ -57,7 +58,7 @@ func (m *Http) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return xxx_messageInfo_Http.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
-		n, err := m.MarshalTo(b)
+		n, err := m.MarshalToSizedBuffer(b)
 		if err != nil {
 			return nil, err
 		}
@@ -420,7 +421,7 @@ func (m *HttpRule) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return xxx_messageInfo_HttpRule.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
-		n, err := m.MarshalTo(b)
+		n, err := m.MarshalToSizedBuffer(b)
 		if err != nil {
 			return nil, err
 		}
@@ -549,9 +550,9 @@ func (m *HttpRule) GetAdditionalBindings() []*HttpRule {
 	return nil
 }
 
-// XXX_OneofFuncs is for the internal use of the proto package.
-func (*HttpRule) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
-	return _HttpRule_OneofMarshaler, _HttpRule_OneofUnmarshaler, _HttpRule_OneofSizer, []interface{}{
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*HttpRule) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
 		(*HttpRule_Get)(nil),
 		(*HttpRule_Put)(nil),
 		(*HttpRule_Post)(nil),
@@ -559,124 +560,6 @@ func (*HttpRule) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) erro
 		(*HttpRule_Patch)(nil),
 		(*HttpRule_Custom)(nil),
 	}
-}
-
-func _HttpRule_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
-	m := msg.(*HttpRule)
-	// pattern
-	switch x := m.Pattern.(type) {
-	case *HttpRule_Get:
-		_ = b.EncodeVarint(2<<3 | proto.WireBytes)
-		_ = b.EncodeStringBytes(x.Get)
-	case *HttpRule_Put:
-		_ = b.EncodeVarint(3<<3 | proto.WireBytes)
-		_ = b.EncodeStringBytes(x.Put)
-	case *HttpRule_Post:
-		_ = b.EncodeVarint(4<<3 | proto.WireBytes)
-		_ = b.EncodeStringBytes(x.Post)
-	case *HttpRule_Delete:
-		_ = b.EncodeVarint(5<<3 | proto.WireBytes)
-		_ = b.EncodeStringBytes(x.Delete)
-	case *HttpRule_Patch:
-		_ = b.EncodeVarint(6<<3 | proto.WireBytes)
-		_ = b.EncodeStringBytes(x.Patch)
-	case *HttpRule_Custom:
-		_ = b.EncodeVarint(8<<3 | proto.WireBytes)
-		if err := b.EncodeMessage(x.Custom); err != nil {
-			return err
-		}
-	case nil:
-	default:
-		return fmt.Errorf("HttpRule.Pattern has unexpected type %T", x)
-	}
-	return nil
-}
-
-func _HttpRule_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
-	m := msg.(*HttpRule)
-	switch tag {
-	case 2: // pattern.get
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		x, err := b.DecodeStringBytes()
-		m.Pattern = &HttpRule_Get{x}
-		return true, err
-	case 3: // pattern.put
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		x, err := b.DecodeStringBytes()
-		m.Pattern = &HttpRule_Put{x}
-		return true, err
-	case 4: // pattern.post
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		x, err := b.DecodeStringBytes()
-		m.Pattern = &HttpRule_Post{x}
-		return true, err
-	case 5: // pattern.delete
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		x, err := b.DecodeStringBytes()
-		m.Pattern = &HttpRule_Delete{x}
-		return true, err
-	case 6: // pattern.patch
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		x, err := b.DecodeStringBytes()
-		m.Pattern = &HttpRule_Patch{x}
-		return true, err
-	case 8: // pattern.custom
-		if wire != proto.WireBytes {
-			return true, proto.ErrInternalBadWireType
-		}
-		msg := new(CustomHttpPattern)
-		err := b.DecodeMessage(msg)
-		m.Pattern = &HttpRule_Custom{msg}
-		return true, err
-	default:
-		return false, nil
-	}
-}
-
-func _HttpRule_OneofSizer(msg proto.Message) (n int) {
-	m := msg.(*HttpRule)
-	// pattern
-	switch x := m.Pattern.(type) {
-	case *HttpRule_Get:
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(len(x.Get)))
-		n += len(x.Get)
-	case *HttpRule_Put:
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(len(x.Put)))
-		n += len(x.Put)
-	case *HttpRule_Post:
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(len(x.Post)))
-		n += len(x.Post)
-	case *HttpRule_Delete:
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(len(x.Delete)))
-		n += len(x.Delete)
-	case *HttpRule_Patch:
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(len(x.Patch)))
-		n += len(x.Patch)
-	case *HttpRule_Custom:
-		s := proto.Size(x.Custom)
-		n += 1 // tag and wire
-		n += proto.SizeVarint(uint64(s))
-		n += s
-	case nil:
-	default:
-		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
-	}
-	return n
 }
 
 func (*HttpRule) XXX_MessageName() string {
@@ -707,7 +590,7 @@ func (m *CustomHttpPattern) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return xxx_messageInfo_CustomHttpPattern.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
-		n, err := m.MarshalTo(b)
+		n, err := m.MarshalToSizedBuffer(b)
 		if err != nil {
 			return nil, err
 		}
@@ -1152,7 +1035,7 @@ func valueToGoStringHttp(v interface{}, typ string) string {
 func (m *Http) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
 	if err != nil {
 		return nil, err
 	}
@@ -1160,42 +1043,50 @@ func (m *Http) Marshal() (dAtA []byte, err error) {
 }
 
 func (m *Http) MarshalTo(dAtA []byte) (int, error) {
-	var i int
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Http) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Rules) > 0 {
-		for _, msg := range m.Rules {
-			dAtA[i] = 0xa
-			i++
-			i = encodeVarintHttp(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
-			if err != nil {
-				return 0, err
-			}
-			i += n
-		}
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	if m.FullyDecodeReservedExpansion {
-		dAtA[i] = 0x10
-		i++
+		i--
 		if m.FullyDecodeReservedExpansion {
 			dAtA[i] = 1
 		} else {
 			dAtA[i] = 0
 		}
-		i++
+		i--
+		dAtA[i] = 0x10
 	}
-	if m.XXX_unrecognized != nil {
-		i += copy(dAtA[i:], m.XXX_unrecognized)
+	if len(m.Rules) > 0 {
+		for iNdEx := len(m.Rules) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Rules[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintHttp(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
 	}
-	return i, nil
+	return len(dAtA) - i, nil
 }
 
 func (m *HttpRule) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
 	if err != nil {
 		return nil, err
 	}
@@ -1203,111 +1094,155 @@ func (m *HttpRule) Marshal() (dAtA []byte, err error) {
 }
 
 func (m *HttpRule) MarshalTo(dAtA []byte) (int, error) {
-	var i int
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *HttpRule) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Selector) > 0 {
-		dAtA[i] = 0xa
-		i++
-		i = encodeVarintHttp(dAtA, i, uint64(len(m.Selector)))
-		i += copy(dAtA[i:], m.Selector)
-	}
-	if m.Pattern != nil {
-		nn1, err := m.Pattern.MarshalTo(dAtA[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += nn1
-	}
-	if len(m.Body) > 0 {
-		dAtA[i] = 0x3a
-		i++
-		i = encodeVarintHttp(dAtA, i, uint64(len(m.Body)))
-		i += copy(dAtA[i:], m.Body)
-	}
-	if len(m.AdditionalBindings) > 0 {
-		for _, msg := range m.AdditionalBindings {
-			dAtA[i] = 0x5a
-			i++
-			i = encodeVarintHttp(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
-			if err != nil {
-				return 0, err
-			}
-			i += n
-		}
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	if len(m.ResponseBody) > 0 {
-		dAtA[i] = 0x62
-		i++
+		i -= len(m.ResponseBody)
+		copy(dAtA[i:], m.ResponseBody)
 		i = encodeVarintHttp(dAtA, i, uint64(len(m.ResponseBody)))
-		i += copy(dAtA[i:], m.ResponseBody)
+		i--
+		dAtA[i] = 0x62
 	}
-	if m.XXX_unrecognized != nil {
-		i += copy(dAtA[i:], m.XXX_unrecognized)
+	if len(m.AdditionalBindings) > 0 {
+		for iNdEx := len(m.AdditionalBindings) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.AdditionalBindings[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintHttp(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x5a
+		}
 	}
-	return i, nil
+	if m.Pattern != nil {
+		{
+			size := m.Pattern.Size()
+			i -= size
+			if _, err := m.Pattern.MarshalTo(dAtA[i:]); err != nil {
+				return 0, err
+			}
+		}
+	}
+	if len(m.Body) > 0 {
+		i -= len(m.Body)
+		copy(dAtA[i:], m.Body)
+		i = encodeVarintHttp(dAtA, i, uint64(len(m.Body)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.Selector) > 0 {
+		i -= len(m.Selector)
+		copy(dAtA[i:], m.Selector)
+		i = encodeVarintHttp(dAtA, i, uint64(len(m.Selector)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *HttpRule_Get) MarshalTo(dAtA []byte) (int, error) {
-	i := 0
-	dAtA[i] = 0x12
-	i++
+	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+}
+
+func (m *HttpRule_Get) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	i -= len(m.Get)
+	copy(dAtA[i:], m.Get)
 	i = encodeVarintHttp(dAtA, i, uint64(len(m.Get)))
-	i += copy(dAtA[i:], m.Get)
-	return i, nil
+	i--
+	dAtA[i] = 0x12
+	return len(dAtA) - i, nil
 }
 func (m *HttpRule_Put) MarshalTo(dAtA []byte) (int, error) {
-	i := 0
-	dAtA[i] = 0x1a
-	i++
+	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+}
+
+func (m *HttpRule_Put) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	i -= len(m.Put)
+	copy(dAtA[i:], m.Put)
 	i = encodeVarintHttp(dAtA, i, uint64(len(m.Put)))
-	i += copy(dAtA[i:], m.Put)
-	return i, nil
+	i--
+	dAtA[i] = 0x1a
+	return len(dAtA) - i, nil
 }
 func (m *HttpRule_Post) MarshalTo(dAtA []byte) (int, error) {
-	i := 0
-	dAtA[i] = 0x22
-	i++
+	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+}
+
+func (m *HttpRule_Post) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	i -= len(m.Post)
+	copy(dAtA[i:], m.Post)
 	i = encodeVarintHttp(dAtA, i, uint64(len(m.Post)))
-	i += copy(dAtA[i:], m.Post)
-	return i, nil
+	i--
+	dAtA[i] = 0x22
+	return len(dAtA) - i, nil
 }
 func (m *HttpRule_Delete) MarshalTo(dAtA []byte) (int, error) {
-	i := 0
-	dAtA[i] = 0x2a
-	i++
+	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+}
+
+func (m *HttpRule_Delete) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	i -= len(m.Delete)
+	copy(dAtA[i:], m.Delete)
 	i = encodeVarintHttp(dAtA, i, uint64(len(m.Delete)))
-	i += copy(dAtA[i:], m.Delete)
-	return i, nil
+	i--
+	dAtA[i] = 0x2a
+	return len(dAtA) - i, nil
 }
 func (m *HttpRule_Patch) MarshalTo(dAtA []byte) (int, error) {
-	i := 0
-	dAtA[i] = 0x32
-	i++
+	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+}
+
+func (m *HttpRule_Patch) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	i -= len(m.Patch)
+	copy(dAtA[i:], m.Patch)
 	i = encodeVarintHttp(dAtA, i, uint64(len(m.Patch)))
-	i += copy(dAtA[i:], m.Patch)
-	return i, nil
+	i--
+	dAtA[i] = 0x32
+	return len(dAtA) - i, nil
 }
 func (m *HttpRule_Custom) MarshalTo(dAtA []byte) (int, error) {
-	i := 0
+	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+}
+
+func (m *HttpRule_Custom) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
 	if m.Custom != nil {
-		dAtA[i] = 0x42
-		i++
-		i = encodeVarintHttp(dAtA, i, uint64(m.Custom.Size()))
-		n2, err := m.Custom.MarshalTo(dAtA[i:])
-		if err != nil {
-			return 0, err
+		{
+			size, err := m.Custom.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintHttp(dAtA, i, uint64(size))
 		}
-		i += n2
+		i--
+		dAtA[i] = 0x42
 	}
-	return i, nil
+	return len(dAtA) - i, nil
 }
 func (m *CustomHttpPattern) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
 	if err != nil {
 		return nil, err
 	}
@@ -1315,40 +1250,50 @@ func (m *CustomHttpPattern) Marshal() (dAtA []byte, err error) {
 }
 
 func (m *CustomHttpPattern) MarshalTo(dAtA []byte) (int, error) {
-	var i int
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CustomHttpPattern) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Kind) > 0 {
-		dAtA[i] = 0xa
-		i++
-		i = encodeVarintHttp(dAtA, i, uint64(len(m.Kind)))
-		i += copy(dAtA[i:], m.Kind)
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	if len(m.Path) > 0 {
-		dAtA[i] = 0x12
-		i++
+		i -= len(m.Path)
+		copy(dAtA[i:], m.Path)
 		i = encodeVarintHttp(dAtA, i, uint64(len(m.Path)))
-		i += copy(dAtA[i:], m.Path)
+		i--
+		dAtA[i] = 0x12
 	}
-	if m.XXX_unrecognized != nil {
-		i += copy(dAtA[i:], m.XXX_unrecognized)
+	if len(m.Kind) > 0 {
+		i -= len(m.Kind)
+		copy(dAtA[i:], m.Kind)
+		i = encodeVarintHttp(dAtA, i, uint64(len(m.Kind)))
+		i--
+		dAtA[i] = 0xa
 	}
-	return i, nil
+	return len(dAtA) - i, nil
 }
 
 func encodeVarintHttp(dAtA []byte, offset int, v uint64) int {
+	offset -= sovHttp(v)
+	base := offset
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
 		offset++
 	}
 	dAtA[offset] = uint8(v)
-	return offset + 1
+	return base
 }
 func NewPopulatedHttp(r randyHttp, easy bool) *Http {
 	this := &Http{}
-	if r.Intn(10) == 0 {
+	if r.Intn(5) == 0 {
 		v1 := r.Intn(5)
 		this.Rules = make([]*HttpRule, v1)
 		for i := 0; i < v1; i++ {
@@ -1381,7 +1326,7 @@ func NewPopulatedHttpRule(r randyHttp, easy bool) *HttpRule {
 		this.Pattern = NewPopulatedHttpRule_Custom(r, easy)
 	}
 	this.Body = string(randStringHttp(r))
-	if r.Intn(10) == 0 {
+	if r.Intn(5) == 0 {
 		v2 := r.Intn(5)
 		this.AdditionalBindings = make([]*HttpRule, v2)
 		for i := 0; i < v2; i++ {
@@ -1644,14 +1589,7 @@ func (m *CustomHttpPattern) Size() (n int) {
 }
 
 func sovHttp(x uint64) (n int) {
-	for {
-		n++
-		x >>= 7
-		if x == 0 {
-			break
-		}
-	}
-	return n
+	return (math_bits.Len64(x|1) + 6) / 7
 }
 func sozHttp(x uint64) (n int) {
 	return sovHttp(uint64((x << 1) ^ uint64((int64(x) >> 63))))
@@ -1660,8 +1598,13 @@ func (this *Http) String() string {
 	if this == nil {
 		return "nil"
 	}
+	repeatedStringForRules := "[]*HttpRule{"
+	for _, f := range this.Rules {
+		repeatedStringForRules += strings.Replace(f.String(), "HttpRule", "HttpRule", 1) + ","
+	}
+	repeatedStringForRules += "}"
 	s := strings.Join([]string{`&Http{`,
-		`Rules:` + strings.Replace(fmt.Sprintf("%v", this.Rules), "HttpRule", "HttpRule", 1) + `,`,
+		`Rules:` + repeatedStringForRules + `,`,
 		`FullyDecodeReservedExpansion:` + fmt.Sprintf("%v", this.FullyDecodeReservedExpansion) + `,`,
 		`XXX_unrecognized:` + fmt.Sprintf("%v", this.XXX_unrecognized) + `,`,
 		`}`,
@@ -1672,11 +1615,16 @@ func (this *HttpRule) String() string {
 	if this == nil {
 		return "nil"
 	}
+	repeatedStringForAdditionalBindings := "[]*HttpRule{"
+	for _, f := range this.AdditionalBindings {
+		repeatedStringForAdditionalBindings += strings.Replace(f.String(), "HttpRule", "HttpRule", 1) + ","
+	}
+	repeatedStringForAdditionalBindings += "}"
 	s := strings.Join([]string{`&HttpRule{`,
 		`Selector:` + fmt.Sprintf("%v", this.Selector) + `,`,
 		`Pattern:` + fmt.Sprintf("%v", this.Pattern) + `,`,
 		`Body:` + fmt.Sprintf("%v", this.Body) + `,`,
-		`AdditionalBindings:` + strings.Replace(fmt.Sprintf("%v", this.AdditionalBindings), "HttpRule", "HttpRule", 1) + `,`,
+		`AdditionalBindings:` + repeatedStringForAdditionalBindings + `,`,
 		`ResponseBody:` + fmt.Sprintf("%v", this.ResponseBody) + `,`,
 		`XXX_unrecognized:` + fmt.Sprintf("%v", this.XXX_unrecognized) + `,`,
 		`}`,
