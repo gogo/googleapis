@@ -30,7 +30,12 @@ func main() {
 	vanity.ForEachFile(files, vanity.TurnOnSizerAll)
 	vanity.ForEachFile(files, vanity.TurnOnUnmarshalerAll)
 
-	vanity.ForEachFile(files, vanity.TurnOffGoEnumPrefixAll)
+	for _, file := range files {
+		if strings.HasPrefix(file.GetName(), "google/rpc") {
+			vanity.TurnOffGoEnumPrefixAll(file)
+		}
+	}
+
 	vanity.ForEachFile(files, vanity.TurnOffGoEnumStringerAll)
 	vanity.ForEachFile(files, vanity.TurnOnEnumStringerAll)
 
@@ -45,6 +50,9 @@ func main() {
 			continue
 		}
 		if strings.HasSuffix(file.GetName(), "http.proto") {
+			continue
+		}
+		if strings.HasPrefix(file.GetName(), "google/api/expr/v1alpha1") {
 			continue
 		}
 		vanity.TurnOnCompareAll(file)

@@ -21,6 +21,18 @@ regenerate:
 	google/api/http.proto \
 	google/api/annotations.proto
 
+	protoc \
+	--gogogoogleapis_out=\
+	Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
+	Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
+	Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
+	Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
+	Mgoogle/protobuf/descriptor.proto=github.com/gogo/protobuf/protoc-gen-gogo/descriptor,\
+	:. \
+	-I=. \
+	google/api/expr/v1alpha1/syntax.proto \
+	google/api/expr/v1alpha1/value.proto
+
 update:
 	go get github.com/gogo/protobuf/gogoreplace
 
@@ -53,3 +65,15 @@ update:
 		'option go_package = "google.golang.org/genproto/googleapis/api/annotations;annotations";' \
 		'option go_package = "api";' \
 		./google/api/annotations.proto
+
+	(cd ./google/api/expr/v1alpha1 && rm syntax.proto; wget ${URL}/google/api/expr/v1alpha1/syntax.proto)
+	gogoreplace \
+		'option go_package = "google.golang.org/genproto/googleapis/api/expr/v1alpha1;expr";' \
+		'option go_package = "expr";' \
+		./google/api/expr/v1alpha1/syntax.proto
+
+	(cd ./google/api/expr/v1alpha1 && rm value.proto; wget ${URL}/google/api/expr/v1alpha1/value.proto)
+	gogoreplace \
+		'option go_package = "google.golang.org/genproto/googleapis/api/expr/v1alpha1;expr";' \
+		'option go_package = "expr";' \
+		./google/api/expr/v1alpha1/value.proto
