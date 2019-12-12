@@ -49,6 +49,9 @@ func main() {
 		if strings.HasSuffix(file.GetName(), "annotations.proto") {
 			continue
 		}
+		if strings.HasSuffix(file.GetName(), "datetime.proto") {
+			continue
+		}
 		if strings.HasSuffix(file.GetName(), "http.proto") {
 			continue
 		}
