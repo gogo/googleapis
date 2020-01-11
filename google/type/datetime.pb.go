@@ -118,10 +118,10 @@ type isDateTime_TimeOffset interface {
 }
 
 type DateTime_UtcOffset struct {
-	UtcOffset *types.Duration `protobuf:"bytes,8,opt,name=utc_offset,json=utcOffset,proto3,oneof"`
+	UtcOffset *types.Duration `protobuf:"bytes,8,opt,name=utc_offset,json=utcOffset,proto3,oneof" json:"utc_offset,omitempty"`
 }
 type DateTime_TimeZone struct {
-	TimeZone *TimeZone `protobuf:"bytes,9,opt,name=time_zone,json=timeZone,proto3,oneof"`
+	TimeZone *TimeZone `protobuf:"bytes,9,opt,name=time_zone,json=timeZone,proto3,oneof" json:"time_zone,omitempty"`
 }
 
 func (*DateTime_UtcOffset) isDateTime_TimeOffset() {}
@@ -569,7 +569,8 @@ func (m *DateTime) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 }
 
 func (m *DateTime_UtcOffset) MarshalTo(dAtA []byte) (int, error) {
-	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
 func (m *DateTime_UtcOffset) MarshalToSizedBuffer(dAtA []byte) (int, error) {
@@ -589,7 +590,8 @@ func (m *DateTime_UtcOffset) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 func (m *DateTime_TimeZone) MarshalTo(dAtA []byte) (int, error) {
-	return m.MarshalToSizedBuffer(dAtA[:m.Size()])
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
 func (m *DateTime_TimeZone) MarshalToSizedBuffer(dAtA []byte) (int, error) {
@@ -1317,6 +1319,7 @@ func (m *TimeZone) Unmarshal(dAtA []byte) error {
 func skipDatetime(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0
+	depth := 0
 	for iNdEx < l {
 		var wire uint64
 		for shift := uint(0); ; shift += 7 {
@@ -1348,10 +1351,8 @@ func skipDatetime(dAtA []byte) (n int, err error) {
 					break
 				}
 			}
-			return iNdEx, nil
 		case 1:
 			iNdEx += 8
-			return iNdEx, nil
 		case 2:
 			var length int
 			for shift := uint(0); ; shift += 7 {
@@ -1372,55 +1373,30 @@ func skipDatetime(dAtA []byte) (n int, err error) {
 				return 0, ErrInvalidLengthDatetime
 			}
 			iNdEx += length
-			if iNdEx < 0 {
-				return 0, ErrInvalidLengthDatetime
-			}
-			return iNdEx, nil
 		case 3:
-			for {
-				var innerWire uint64
-				var start int = iNdEx
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return 0, ErrIntOverflowDatetime
-					}
-					if iNdEx >= l {
-						return 0, io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					innerWire |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				innerWireType := int(innerWire & 0x7)
-				if innerWireType == 4 {
-					break
-				}
-				next, err := skipDatetime(dAtA[start:])
-				if err != nil {
-					return 0, err
-				}
-				iNdEx = start + next
-				if iNdEx < 0 {
-					return 0, ErrInvalidLengthDatetime
-				}
-			}
-			return iNdEx, nil
+			depth++
 		case 4:
-			return iNdEx, nil
+			if depth == 0 {
+				return 0, ErrUnexpectedEndOfGroupDatetime
+			}
+			depth--
 		case 5:
 			iNdEx += 4
-			return iNdEx, nil
 		default:
 			return 0, fmt.Errorf("proto: illegal wireType %d", wireType)
 		}
+		if iNdEx < 0 {
+			return 0, ErrInvalidLengthDatetime
+		}
+		if depth == 0 {
+			return iNdEx, nil
+		}
 	}
-	panic("unreachable")
+	return 0, io.ErrUnexpectedEOF
 }
 
 var (
-	ErrInvalidLengthDatetime = fmt.Errorf("proto: negative length found during unmarshaling")
-	ErrIntOverflowDatetime   = fmt.Errorf("proto: integer overflow")
+	ErrInvalidLengthDatetime        = fmt.Errorf("proto: negative length found during unmarshaling")
+	ErrIntOverflowDatetime          = fmt.Errorf("proto: integer overflow")
+	ErrUnexpectedEndOfGroupDatetime = fmt.Errorf("proto: unexpected end of group")
 )
