@@ -39,7 +39,6 @@ regenerate:
 	:. \
 	-I=. \
 	google/type/calendar_period.proto \
-	google/type/color.proto \
 	google/type/date.proto \
 	google/type/dayofweek.proto \
 	google/type/expr.proto \
@@ -50,6 +49,13 @@ regenerate:
 	google/type/postal_address.proto \
 	google/type/quaternion.proto \
 	google/type/timeofday.proto
+
+	protoc \
+	--gogogoogleapis_out=\
+	Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,\
+	:. \
+	-I=. \
+	google/type/color.proto
 
 	protoc \
 	--gogogoogleapis_out=\
