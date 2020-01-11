@@ -1,4 +1,4 @@
-module github.com/minekube/googleapis
+module github.com/gogo/googleapis
 
 go 1.12
 
