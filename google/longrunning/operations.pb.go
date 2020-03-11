@@ -11,7 +11,6 @@ import (
 	descriptor "github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
 	rpc "github.com/gogo/protobuf/rpc"
 	types "github.com/gogo/protobuf/types"
-	_ "google/api"
 	io "io"
 	math "math"
 	math_bits "math/bits"

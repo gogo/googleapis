@@ -38,6 +38,7 @@ regenerate:
 	--gogogoogleapis_out=\
 	Mgoogle/api/annotations.proto=github.com/gogo/protobuf/api,\
 	Mgoogle/api/http.proto=github.com/gogo/protobuf/api,\
+	Mgoogle/api/client.proto=github.com/gogo/protobuf/api,\
 	Mgoogle/rpc/status.proto=github.com/gogo/protobuf/rpc,\
 	Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
 	Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,\
