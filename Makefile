@@ -19,7 +19,8 @@ regenerate:
 	:. \
 	-I=. \
 	google/api/http.proto \
-	google/api/annotations.proto
+	google/api/annotations.proto \
+	google/api/client.proto
 
 	protoc \
 	--gogogoogleapis_out=\
@@ -32,6 +33,19 @@ regenerate:
 	-I=. \
 	google/api/expr/v1alpha1/syntax.proto \
 	google/api/expr/v1alpha1/value.proto
+
+	protoc \
+	--gogogoogleapis_out=\
+	Mgoogle/api/annotations.proto=github.com/gogo/protobuf/api,\
+	Mgoogle/api/http.proto=github.com/gogo/protobuf/api,\
+	Mgoogle/rpc/status.proto=github.com/gogo/protobuf/rpc,\
+	Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
+	Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,\
+	Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
+	Mgoogle/protobuf/descriptor.proto=github.com/gogo/protobuf/protoc-gen-gogo/descriptor,\
+	:. \
+	-I=. \
+	google/longrunning/operations.proto
 
 	protoc \
 	--gogogoogleapis_out=\
@@ -98,6 +112,12 @@ update:
 		'option go_package = "api";' \
 		./google/api/annotations.proto
 
+	(cd ./google/api && rm client.proto; wget ${URL}/google/api/client.proto)
+	gogoreplace \
+		'option go_package = "google.golang.org/genproto/googleapis/api/annotations;annotations";' \
+		'option go_package = "api";' \
+		./google/api/client.proto
+
 	(cd ./google/api/expr/v1alpha1 && rm syntax.proto; wget ${URL}/google/api/expr/v1alpha1/syntax.proto)
 	gogoreplace \
 		'option go_package = "google.golang.org/genproto/googleapis/api/expr/v1alpha1;expr";' \
@@ -109,6 +129,12 @@ update:
 		'option go_package = "google.golang.org/genproto/googleapis/api/expr/v1alpha1;expr";' \
 		'option go_package = "expr";' \
 		./google/api/expr/v1alpha1/value.proto
+
+	(cd ./google/longrunning && rm operations.proto; wget ${URL}/google/longrunning/operations.proto)
+	gogoreplace \
+		'option go_package = "google.golang.org/genproto/googleapis/longrunning;longrunning";' \
+		'option go_package = "longrunning";' \
+		./google/longrunning/operations.proto
 
 	(cd ./google/type && rm calendar_period.proto; wget ${URL}/google/type/calendar_period.proto)
 	gogoreplace \
