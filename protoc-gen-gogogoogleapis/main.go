@@ -58,6 +58,9 @@ func main() {
 		if strings.HasPrefix(file.GetName(), "google/api/expr/v1alpha1") {
 			continue
 		}
+		if strings.HasSuffix(file.GetName(), "operations.proto") {
+			continue
+		}
 		vanity.TurnOnCompareAll(file)
 	}
 
