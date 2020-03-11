@@ -6,10 +6,10 @@ package longrunning
 import (
 	bytes "bytes"
 	fmt "fmt"
-	_ "github.com/gogo/protobuf/api"
+	_ "github.com/gogo/googleapis/google/api"
+	rpc "github.com/gogo/googleapis/google/rpc"
 	proto "github.com/gogo/protobuf/proto"
 	descriptor "github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
-	rpc "github.com/gogo/protobuf/rpc"
 	types "github.com/gogo/protobuf/types"
 	io "io"
 	math "math"

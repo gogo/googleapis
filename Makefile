@@ -36,10 +36,10 @@ regenerate:
 
 	protoc \
 	--gogogoogleapis_out=\
-	Mgoogle/api/annotations.proto=github.com/gogo/protobuf/api,\
-	Mgoogle/api/http.proto=github.com/gogo/protobuf/api,\
-	Mgoogle/api/client.proto=github.com/gogo/protobuf/api,\
-	Mgoogle/rpc/status.proto=github.com/gogo/protobuf/rpc,\
+	Mgoogle/api/annotations.proto=github.com/gogo/googleapis/google/api,\
+	Mgoogle/api/http.proto=github.com/gogo/googleapis/google/api,\
+	Mgoogle/api/client.proto=github.com/gogo/googleapis/google/api,\
+	Mgoogle/rpc/status.proto=github.com/gogo/googleapis/google/rpc,\
 	Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
 	Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,\
 	Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
