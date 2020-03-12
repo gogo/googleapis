@@ -5,12 +5,16 @@ package longrunning
 
 import (
 	bytes "bytes"
+	context "context"
 	fmt "fmt"
 	_ "github.com/gogo/googleapis/google/api"
 	rpc "github.com/gogo/googleapis/google/rpc"
 	proto "github.com/gogo/protobuf/proto"
 	descriptor "github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
 	types "github.com/gogo/protobuf/types"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -1131,6 +1135,303 @@ func valueToGoStringOperations(v interface{}, typ string) string {
 	pv := reflect.Indirect(rv).Interface()
 	return fmt.Sprintf("func(v %v) *%v { return &v } ( %#v )", typ, typ, pv)
 }
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// OperationsClient is the client API for Operations service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type OperationsClient interface {
+	// Lists operations that match the specified filter in the request. If the
+	// server doesn't support this method, it returns `UNIMPLEMENTED`.
+	//
+	// NOTE: the `name` binding allows API services to override the binding
+	// to use different resource name schemes, such as `users/*/operations`. To
+	// override the binding, API services can add a binding such as
+	// `"/v1/{name=users/*}/operations"` to their service configuration.
+	// For backwards compatibility, the default name includes the operations
+	// collection id, however overriding users must ensure the name binding
+	// is the parent resource, without the operations collection id.
+	ListOperations(ctx context.Context, in *ListOperationsRequest, opts ...grpc.CallOption) (*ListOperationsResponse, error)
+	// Gets the latest state of a long-running operation.  Clients can use this
+	// method to poll the operation result at intervals as recommended by the API
+	// service.
+	GetOperation(ctx context.Context, in *GetOperationRequest, opts ...grpc.CallOption) (*Operation, error)
+	// Deletes a long-running operation. This method indicates that the client is
+	// no longer interested in the operation result. It does not cancel the
+	// operation. If the server doesn't support this method, it returns
+	// `google.rpc.Code.UNIMPLEMENTED`.
+	DeleteOperation(ctx context.Context, in *DeleteOperationRequest, opts ...grpc.CallOption) (*types.Empty, error)
+	// Starts asynchronous cancellation on a long-running operation.  The server
+	// makes a best effort to cancel the operation, but success is not
+	// guaranteed.  If the server doesn't support this method, it returns
+	// `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+	// [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
+	// other methods to check whether the cancellation succeeded or whether the
+	// operation completed despite cancellation. On successful cancellation,
+	// the operation is not deleted; instead, it becomes an operation with
+	// an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+	// corresponding to `Code.CANCELLED`.
+	CancelOperation(ctx context.Context, in *CancelOperationRequest, opts ...grpc.CallOption) (*types.Empty, error)
+	// Waits for the specified long-running operation until it is done or reaches
+	// at most a specified timeout, returning the latest state.  If the operation
+	// is already done, the latest state is immediately returned.  If the timeout
+	// specified is greater than the default HTTP/RPC timeout, the HTTP/RPC
+	// timeout is used.  If the server does not support this method, it returns
+	// `google.rpc.Code.UNIMPLEMENTED`.
+	// Note that this method is on a best-effort basis.  It may return the latest
+	// state before the specified timeout (including immediately), meaning even an
+	// immediate response is no guarantee that the operation is done.
+	WaitOperation(ctx context.Context, in *WaitOperationRequest, opts ...grpc.CallOption) (*Operation, error)
+}
+
+type operationsClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewOperationsClient(cc *grpc.ClientConn) OperationsClient {
+	return &operationsClient{cc}
+}
+
+func (c *operationsClient) ListOperations(ctx context.Context, in *ListOperationsRequest, opts ...grpc.CallOption) (*ListOperationsResponse, error) {
+	out := new(ListOperationsResponse)
+	err := c.cc.Invoke(ctx, "/google.longrunning.Operations/ListOperations", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *operationsClient) GetOperation(ctx context.Context, in *GetOperationRequest, opts ...grpc.CallOption) (*Operation, error) {
+	out := new(Operation)
+	err := c.cc.Invoke(ctx, "/google.longrunning.Operations/GetOperation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *operationsClient) DeleteOperation(ctx context.Context, in *DeleteOperationRequest, opts ...grpc.CallOption) (*types.Empty, error) {
+	out := new(types.Empty)
+	err := c.cc.Invoke(ctx, "/google.longrunning.Operations/DeleteOperation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *operationsClient) CancelOperation(ctx context.Context, in *CancelOperationRequest, opts ...grpc.CallOption) (*types.Empty, error) {
+	out := new(types.Empty)
+	err := c.cc.Invoke(ctx, "/google.longrunning.Operations/CancelOperation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *operationsClient) WaitOperation(ctx context.Context, in *WaitOperationRequest, opts ...grpc.CallOption) (*Operation, error) {
+	out := new(Operation)
+	err := c.cc.Invoke(ctx, "/google.longrunning.Operations/WaitOperation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// OperationsServer is the server API for Operations service.
+type OperationsServer interface {
+	// Lists operations that match the specified filter in the request. If the
+	// server doesn't support this method, it returns `UNIMPLEMENTED`.
+	//
+	// NOTE: the `name` binding allows API services to override the binding
+	// to use different resource name schemes, such as `users/*/operations`. To
+	// override the binding, API services can add a binding such as
+	// `"/v1/{name=users/*}/operations"` to their service configuration.
+	// For backwards compatibility, the default name includes the operations
+	// collection id, however overriding users must ensure the name binding
+	// is the parent resource, without the operations collection id.
+	ListOperations(context.Context, *ListOperationsRequest) (*ListOperationsResponse, error)
+	// Gets the latest state of a long-running operation.  Clients can use this
+	// method to poll the operation result at intervals as recommended by the API
+	// service.
+	GetOperation(context.Context, *GetOperationRequest) (*Operation, error)
+	// Deletes a long-running operation. This method indicates that the client is
+	// no longer interested in the operation result. It does not cancel the
+	// operation. If the server doesn't support this method, it returns
+	// `google.rpc.Code.UNIMPLEMENTED`.
+	DeleteOperation(context.Context, *DeleteOperationRequest) (*types.Empty, error)
+	// Starts asynchronous cancellation on a long-running operation.  The server
+	// makes a best effort to cancel the operation, but success is not
+	// guaranteed.  If the server doesn't support this method, it returns
+	// `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+	// [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
+	// other methods to check whether the cancellation succeeded or whether the
+	// operation completed despite cancellation. On successful cancellation,
+	// the operation is not deleted; instead, it becomes an operation with
+	// an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+	// corresponding to `Code.CANCELLED`.
+	CancelOperation(context.Context, *CancelOperationRequest) (*types.Empty, error)
+	// Waits for the specified long-running operation until it is done or reaches
+	// at most a specified timeout, returning the latest state.  If the operation
+	// is already done, the latest state is immediately returned.  If the timeout
+	// specified is greater than the default HTTP/RPC timeout, the HTTP/RPC
+	// timeout is used.  If the server does not support this method, it returns
+	// `google.rpc.Code.UNIMPLEMENTED`.
+	// Note that this method is on a best-effort basis.  It may return the latest
+	// state before the specified timeout (including immediately), meaning even an
+	// immediate response is no guarantee that the operation is done.
+	WaitOperation(context.Context, *WaitOperationRequest) (*Operation, error)
+}
+
+// UnimplementedOperationsServer can be embedded to have forward compatible implementations.
+type UnimplementedOperationsServer struct {
+}
+
+func (*UnimplementedOperationsServer) ListOperations(ctx context.Context, req *ListOperationsRequest) (*ListOperationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListOperations not implemented")
+}
+func (*UnimplementedOperationsServer) GetOperation(ctx context.Context, req *GetOperationRequest) (*Operation, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOperation not implemented")
+}
+func (*UnimplementedOperationsServer) DeleteOperation(ctx context.Context, req *DeleteOperationRequest) (*types.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteOperation not implemented")
+}
+func (*UnimplementedOperationsServer) CancelOperation(ctx context.Context, req *CancelOperationRequest) (*types.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelOperation not implemented")
+}
+func (*UnimplementedOperationsServer) WaitOperation(ctx context.Context, req *WaitOperationRequest) (*Operation, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WaitOperation not implemented")
+}
+
+func RegisterOperationsServer(s *grpc.Server, srv OperationsServer) {
+	s.RegisterService(&_Operations_serviceDesc, srv)
+}
+
+func _Operations_ListOperations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListOperationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperationsServer).ListOperations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/google.longrunning.Operations/ListOperations",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperationsServer).ListOperations(ctx, req.(*ListOperationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Operations_GetOperation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOperationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperationsServer).GetOperation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/google.longrunning.Operations/GetOperation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperationsServer).GetOperation(ctx, req.(*GetOperationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Operations_DeleteOperation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteOperationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperationsServer).DeleteOperation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/google.longrunning.Operations/DeleteOperation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperationsServer).DeleteOperation(ctx, req.(*DeleteOperationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Operations_CancelOperation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelOperationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperationsServer).CancelOperation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/google.longrunning.Operations/CancelOperation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperationsServer).CancelOperation(ctx, req.(*CancelOperationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Operations_WaitOperation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WaitOperationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OperationsServer).WaitOperation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/google.longrunning.Operations/WaitOperation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OperationsServer).WaitOperation(ctx, req.(*WaitOperationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Operations_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "google.longrunning.Operations",
+	HandlerType: (*OperationsServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListOperations",
+			Handler:    _Operations_ListOperations_Handler,
+		},
+		{
+			MethodName: "GetOperation",
+			Handler:    _Operations_GetOperation_Handler,
+		},
+		{
+			MethodName: "DeleteOperation",
+			Handler:    _Operations_DeleteOperation_Handler,
+		},
+		{
+			MethodName: "CancelOperation",
+			Handler:    _Operations_CancelOperation_Handler,
+		},
+		{
+			MethodName: "WaitOperation",
+			Handler:    _Operations_WaitOperation_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "google/longrunning/operations.proto",
+}
+
 func (m *Operation) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
