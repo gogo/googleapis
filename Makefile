@@ -35,7 +35,7 @@ regenerate:
 	google/api/expr/v1alpha1/value.proto
 
 	protoc \
-	--gogogoogleapis_out=\
+	--gogogoogleapis_out=plugins=grpc,\
 	Mgoogle/api/annotations.proto=github.com/gogo/googleapis/google/api,\
 	Mgoogle/api/http.proto=github.com/gogo/googleapis/google/api,\
 	Mgoogle/api/client.proto=github.com/gogo/googleapis/google/api,\
