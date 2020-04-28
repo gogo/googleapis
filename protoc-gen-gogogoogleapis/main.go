@@ -61,6 +61,9 @@ func main() {
 		if strings.HasSuffix(file.GetName(), "operations.proto") {
 			continue
 		}
+		if strings.HasSuffix(file.GetName(), "viewport.proto") {
+			continue
+		}
 		vanity.TurnOnCompareAll(file)
 	}
 
