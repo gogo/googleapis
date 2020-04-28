@@ -80,6 +80,13 @@ regenerate:
 	-I=. \
 	google/type/datetime.proto
 
+	protoc \
+	--gogogoogleapis_out=\
+	Mgoogle/type/latlng.proto=github.com/gogo/googleapis/google/type,\
+	:. \
+	-I=. \
+	google/geo/type/viewport.proto
+
 update:
 	go get github.com/gogo/protobuf/gogoreplace
 
@@ -214,3 +221,9 @@ update:
 		'option go_package = "google.golang.org/genproto/googleapis/type/timeofday;timeofday";' \
 		'option go_package = "type";' \
 		./google/type/timeofday.proto
+
+	(cd ./google/geo/type && rm viewport.proto; wget ${URL}/google/geo/type/viewport.proto)
+	gogoreplace \
+		'option go_package = "google.golang.org/genproto/googleapis/geo/type/viewport;viewport";' \
+		'option go_package = "type";' \
+		./google/geo/type/viewport.proto
