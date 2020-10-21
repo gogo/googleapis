@@ -21,25 +21,25 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a day of week.
+// Represents a day of the week.
 type DayOfWeek int32
 
 const (
-	// The unspecified day-of-week.
+	// The day of the week is unspecified.
 	DayOfWeek_DAY_OF_WEEK_UNSPECIFIED DayOfWeek = 0
-	// The day-of-week of Monday.
+	// Monday
 	DayOfWeek_MONDAY DayOfWeek = 1
-	// The day-of-week of Tuesday.
+	// Tuesday
 	DayOfWeek_TUESDAY DayOfWeek = 2
-	// The day-of-week of Wednesday.
+	// Wednesday
 	DayOfWeek_WEDNESDAY DayOfWeek = 3
-	// The day-of-week of Thursday.
+	// Thursday
 	DayOfWeek_THURSDAY DayOfWeek = 4
-	// The day-of-week of Friday.
+	// Friday
 	DayOfWeek_FRIDAY DayOfWeek = 5
-	// The day-of-week of Saturday.
+	// Saturday
 	DayOfWeek_SATURDAY DayOfWeek = 6
-	// The day-of-week of Sunday.
+	// Sunday
 	DayOfWeek_SUNDAY DayOfWeek = 7
 )
 

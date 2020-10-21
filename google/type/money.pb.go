@@ -27,7 +27,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Represents an amount of money with its currency type.
 type Money struct {
-	// The 3-letter currency code defined in ISO 4217.
+	// The three-letter currency code defined in ISO 4217.
 	CurrencyCode string `protobuf:"bytes,1,opt,name=currency_code,json=currencyCode,proto3" json:"currency_code,omitempty"`
 	// The whole units of the amount.
 	// For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
