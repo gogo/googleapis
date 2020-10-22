@@ -27,7 +27,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Represents a fraction in terms of a numerator divided by a denominator.
 type Fraction struct {
-	// The portion of the denominator in the faction, e.g. 2 in 2/3.
+	// The numerator in the fraction, e.g. 2 in 2/3.
 	Numerator int64 `protobuf:"varint,1,opt,name=numerator,proto3" json:"numerator,omitempty"`
 	// The value by which the numerator is divided, e.g. 3 in 2/3. Must be
 	// positive.

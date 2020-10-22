@@ -26,8 +26,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// An object representing a latitude/longitude pair. This is expressed as a pair
-// of doubles representing degrees latitude and degrees longitude. Unless
+// An object that represents a latitude/longitude pair. This is expressed as a
+// pair of doubles to represent degrees latitude and degrees longitude. Unless
 // specified otherwise, this must conform to the
 // <a href="http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS84
 // standard</a>. Values must be within normalized ranges.

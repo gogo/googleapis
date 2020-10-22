@@ -24,6 +24,13 @@ regenerate:
 
 	protoc \
 	--gogogoogleapis_out=\
+	Mgoogle/protobuf/any.proto=github.com/gogo/protobuf/types,\
+	:. \
+	-I=. \
+	google/api/httpbody.proto
+
+	protoc \
+	--gogogoogleapis_out=\
 	Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,\
 	Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
 	Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
@@ -113,6 +120,12 @@ update:
 		'option go_package = "google.golang.org/genproto/googleapis/api/annotations;annotations";' \
 		'option go_package = "api";' \
 		./google/api/http.proto
+
+	(cd ./google/api && rm httpbody.proto; wget ${URL}/google/api/httpbody.proto)
+	gogoreplace \
+		'option go_package = "google.golang.org/genproto/googleapis/api/httpbody;httpbody";' \
+		'option go_package = "api";' \
+		./google/api/httpbody.proto
 
 	(cd ./google/api && rm annotations.proto; wget ${URL}/google/api/annotations.proto)
 	gogoreplace \
