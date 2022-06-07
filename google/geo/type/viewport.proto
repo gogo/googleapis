@@ -19,7 +19,7 @@ package google.geo.type;
 
 import "google/type/latlng.proto";
 
-option go_package = "type";
+option go_package = "github.com/gogo/googleapis/google/type;type";
 option java_multiple_files = true;
 option java_outer_classname = "ViewportProto";
 option java_package = "com.google.geo.type";

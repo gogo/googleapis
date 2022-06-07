@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ syntax = "proto3";
 package google.type;
 
 option cc_enable_arenas = true;
-option go_package = "type";
+option go_package = "github.com/gogo/googleapis/google/type;type";
 option java_multiple_files = true;
 option java_outer_classname = "MoneyProto";
 option java_package = "com.google.type";

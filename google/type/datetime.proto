@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package google.type;
 import "google/protobuf/duration.proto";
 
 option cc_enable_arenas = true;
-option go_package = "type";
+option go_package = "github.com/gogo/googleapis/google/type;type";
 option java_multiple_files = true;
 option java_outer_classname = "DateTimeProto";
 option java_package = "com.google.type";
